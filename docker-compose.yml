@@ -23,11 +23,11 @@ services:
     networks:
       - backend-network
 
-  backend:
+  backend_rails:
     build:
       context: ./backend
       dockerfile: Dockerfile
-    container_name: demo_backend
+    container_name: backend_rails
     restart: unless-stopped
     environment:
       # Match these to the DB settings above
