@@ -15,10 +15,10 @@ spec:
       labels:
         app: backend-rails
     spec:
-      serviceAccountName: post-manage-ksa
+      # serviceAccountName: post-manage-ksa
       containers:
       - name: backend-rails
-        image: asia-northeast1-docker.pkg.dev/glossy-attic-443507-u6/docker/backend-rails:latest
+        image: asia-northeast1-docker.pkg.dev/glossy-attic-443507-u6/docker/backend-rails:3f15222
         ports:
         - containerPort: 80
         envFrom:
@@ -33,6 +33,18 @@ spec:
           limits:
             cpu: "500m"
             memory: "512Mi"
+        readinessProbe:
+          httpGet:
+            path: /up
+            port: 80
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /up
+            port: 80
+          initialDelaySeconds: 10
+          periodSeconds: 15
 ---
 apiVersion: v1
 kind: Service

@@ -9,14 +9,14 @@ spec:
   rules:
   - http:
       paths:
-      - path: /api/go/*
-        pathType: ImplementationSpecific
-        backend:
-          service:
-            name: backend-go
-            port:
-              number: 80
-      - path: /api/rails/*
+      # - path: /api/go/*
+      #   pathType: ImplementationSpecific
+      #   backend:
+      #     service:
+      #       name: backend-go
+      #       port:
+      #         number: 80
+      - path: /api/*
         pathType: ImplementationSpecific
         backend:
           service:
