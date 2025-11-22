@@ -1,0 +1,14 @@
+apiVersion: cloud.google.com/v1
+kind: BackendConfig
+metadata:
+  name: backend-rails-config
+  namespace: demo
+spec:
+  healthCheck:
+    checkIntervalSec: 10
+    timeoutSec: 1
+    healthyThreshold: 1
+    unhealthyThreshold: 3
+    type: HTTP
+    requestPath: /up
+    port: 80

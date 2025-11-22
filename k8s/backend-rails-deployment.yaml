@@ -51,6 +51,8 @@ kind: Service
 metadata:
   name: backend-rails
   namespace: demo
+  annotations:
+    cloud.google.com/backend-config: '{"default": "backend-rails-config"}'
 spec:
   selector:
     app: backend-rails
