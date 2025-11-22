@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: demo-ingress
+  namespace: demo
+  annotations:
+    kubernetes.io/ingress.class: "gce"
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /api/go/*
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: backend-go
+            port:
+              number: 80
+      - path: /api/rails/*
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: backend-rails
+            port:
+              number: 80

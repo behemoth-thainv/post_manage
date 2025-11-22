@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-go
+  namespace: demo
+  labels:
+    app: backend-go
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend-go
+  template:
+    metadata:
+      labels:
+        app: backend-go
+    spec:
+      serviceAccountName: post-manage-ksa
+      containers:
+      - name: backend-go
+        image: asia-northeast1-docker.pkg.dev/glossy-attic-443507-u6/docker/backend-go:latest
+        ports:
+        - containerPort: 8080
+        envFrom:
+        - configMapRef:
+            name: app-config
+        - secretRef:
+            name: app-secrets
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+          limits:
+            cpu: "500m"
+            memory: "512Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-go
+  namespace: demo
+spec:
+  selector:
+    app: backend-go
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+  type: ClusterIP
