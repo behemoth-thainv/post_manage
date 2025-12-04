@@ -18,6 +18,10 @@ func main() {
 	app := fiber.New()
 	app.Use(cors.New())
 
+	app.Get("/healthz", func(c *fiber.Ctx) error {
+		return c.SendString("ok")
+	})
+
 	api := app.Group("/api-go")
 	api.Get("/posts", handlers.ListPosts)
 
