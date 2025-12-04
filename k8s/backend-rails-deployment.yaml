@@ -18,7 +18,7 @@ spec:
       # serviceAccountName: post-manage-ksa
       containers:
       - name: backend-rails
-        image: asia-northeast1-docker.pkg.dev/glossy-attic-443507-u6/docker/backend-rails:3f15222
+        image: asia-northeast1-docker.pkg.dev/glossy-attic-443507-u6/docker/backend-rails:103758c
         ports:
         - containerPort: 80
         envFrom:
@@ -45,19 +45,3 @@ spec:
             port: 80
           initialDelaySeconds: 10
           periodSeconds: 15
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: backend-rails
-  namespace: demo
-  annotations:
-    cloud.google.com/backend-config: '{"default": "backend-rails-config"}'
-spec:
-  selector:
-    app: backend-rails
-  ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 80
-  type: ClusterIP

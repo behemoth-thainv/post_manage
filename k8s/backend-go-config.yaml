@@ -1,7 +1,7 @@
 apiVersion: cloud.google.com/v1
 kind: BackendConfig
 metadata:
-  name: backend-rails-config
+  name: backend-go-config
   namespace: demo
 spec:
   healthCheck:
@@ -10,21 +10,21 @@ spec:
     healthyThreshold: 1
     unhealthyThreshold: 3
     type: HTTP
-    requestPath: /up
-    port: 80
+    requestPath: /healthz
+    port: 8080
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: backend-rails
+  name: backend-go
   namespace: demo
   annotations:
-    cloud.google.com/backend-config: '{"default": "backend-rails-config"}'
+    cloud.google.com/backend-config: '{"default": "backend-go-config"}'
 spec:
   selector:
-    app: backend-rails
+    app: backend-go
   ports:
     - protocol: TCP
       port: 80
-      targetPort: 80
+      targetPort: 8080
   type: ClusterIP

@@ -15,7 +15,7 @@ spec:
       labels:
         app: backend-go
     spec:
-      serviceAccountName: post-manage-ksa
+      # serviceAccountName: post-manage-ksa
       containers:
       - name: backend-go
         image: asia-northeast1-docker.pkg.dev/glossy-attic-443507-u6/docker/backend-go:latest
@@ -33,17 +33,15 @@ spec:
           limits:
             cpu: "500m"
             memory: "512Mi"
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: backend-go
-  namespace: demo
-spec:
-  selector:
-    app: backend-go
-  ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 8080
-  type: ClusterIP
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 8080
+          initialDelaySeconds: 10
+          periodSeconds: 15

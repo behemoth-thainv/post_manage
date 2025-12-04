@@ -9,6 +9,7 @@ spec:
   rules:
   - http:
       paths:
+      # Backend API routes (processed first due to more specific paths)
       # - path: /api/go/*
       #   pathType: ImplementationSpecific
       #   backend:
@@ -16,10 +17,25 @@ spec:
       #       name: backend-go
       #       port:
       #         number: 80
+      - path: /api-go/*
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: backend-go
+            port:
+              number: 80
       - path: /api/*
         pathType: ImplementationSpecific
         backend:
           service:
             name: backend-rails
+            port:
+              number: 80
+      # Frontend route (catch-all for SPA)
+      - path: /*
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: frontend
             port:
               number: 80
