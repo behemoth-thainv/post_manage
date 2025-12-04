@@ -18,7 +18,7 @@ func main() {
 	app := fiber.New()
 	app.Use(cors.New())
 
-	api := app.Group("/api")
+	api := app.Group("/api-go")
 	api.Get("/posts", handlers.ListPosts)
 
 	port := os.Getenv("PORT")
