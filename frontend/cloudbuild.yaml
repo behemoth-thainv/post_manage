@@ -49,4 +49,4 @@ options:
   # machineType: 'E2_HIGHCPU_8'  # Uncomment for faster builds (~$0.0136/min)
   logging: CLOUD_LOGGING_ONLY
 
-timeout: '1200s'
+timeout: '1201s'
